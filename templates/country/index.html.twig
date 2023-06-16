@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% for flashType, flashMessages in app.flashes %}
+            {% for flashMessage in flashMessages %}
+                {% if flashType == 'notice' %}
+                    <br>
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% elseif flashType == 'error' %}
+                    <br>
+                    <div class="alert alert-danger">
+                        {{ flashMessage }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for country in countries %}
+                    <tr>
+                        <td>{{ country.name }}</td>
+                        <td>
+                            <a href="{{ path('delete_country', {'id': country.id}) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+{% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('create_country') }}" class="btn btn-success  mb-3">Create</a>
+    </div>
+{% endblock %}

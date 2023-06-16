@@ -2,29 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Person;
+use App\Entity\Jobs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PersonAddType extends AbstractType
+class JobsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
-            ->add('active')
-            ->add('job_id')
-            ->add('country_id')
+            ->add('name')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Person::class,
+            'data_class' => Jobs::class,
         ]);
     }
 }

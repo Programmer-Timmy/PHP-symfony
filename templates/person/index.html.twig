@@ -1,20 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PersonController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Timva/dev/curd/src/Controller/PersonController.php'|file_link(0) }}">src/Controller/PersonController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Timva/dev/curd/templates/person/index.html.twig'|file_link(0) }}">templates/person/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container">
+        {% for flashType, flashMessages in app.flashes %}
+            {% for flashMessage in flashMessages %}
+                {% if flashType == 'notice' %}
+                    <br>
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% elseif flashType == 'error' %}
+                    <br>
+                    <div class="alert alert-danger">
+                        {{ flashMessage }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Active</th>
+                    <th>Job ID</th>
+                    <th>Country ID</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in persons %}
+                    <tr>
+                        <td>{{ person.firstName }}</td>
+                        <td>{{ person.lastName }}</td>
+                        <td>{{ person.email }}</td>
+                        <td>{{ person.active ? 'Yes' : 'No' }}</td>
+                        <td>
+                            {% for job in jobs %}
+                                {% if person.jobid == job.id %}
+                                    {{ job.name }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for country in countries %}
+                                {% if person.countryid == country.id %}
+                                    {{ country.name }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ path('update_person', {'id': person.id}) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ path('delete_person', {'id': person.id}) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+{% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('create_person') }}" class="btn btn-success  mb-3">Create</a>
+    </div>
 {% endblock %}

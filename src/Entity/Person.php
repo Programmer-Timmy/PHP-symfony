@@ -27,10 +27,10 @@ class Person
     private ?int $active = null;
 
     #[ORM\Column]
-    private ?int $job_id = null;
+    private ?int $jobid = null;
 
     #[ORM\Column]
-    private ?int $country_id = null;
+    private ?int $countryid = null;
 
     public function getId(): ?int
     {
@@ -87,24 +87,24 @@ class Person
 
     public function getJobId(): ?int
     {
-        return $this->job_id;
+        return $this->jobid;
     }
 
-    public function setJobId(int $job_id): static
+    public function setJobId(int $jobid): static
     {
-        $this->job_id = $job_id;
+        $this->jobid = $jobid;
 
         return $this;
     }
 
     public function getCountryId(): ?int
     {
-        return $this->country_id;
+        return $this->countryid;
     }
 
-    public function setCountryId(int $country_id): static
+    public function setCountryId(int $countryid): static
     {
-        $this->country_id = $country_id;
+        $this->countryid = $countryid;
 
         return $this;
     }
